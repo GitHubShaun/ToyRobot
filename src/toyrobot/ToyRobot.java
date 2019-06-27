@@ -1,5 +1,13 @@
 package toyrobot;
 
+/*
+TODO: Validate X,Y,Direction is within range/enum
+TODO: REST API
+TODO: JavaDoc
+TODO: try/catch/throw error handling
+TODO: variable board size (Currently fixed on 5x5 - hardcoded)
+*/
+
 public class ToyRobot {
 
     enum Direction {
@@ -9,6 +17,12 @@ public class ToyRobot {
     private int X;
     private int Y;
     private Direction DIRECTION;
+
+    public ToyRobot(int X, int Y, String direction){
+        this.X = X;
+        this.Y = Y;
+        if (contains(direction)) this.DIRECTION = toDirection(direction);
+    }
 
     public ToyRobot(int X, int Y, Direction DIRECTION){
         this.X = X;
@@ -113,7 +127,17 @@ public class ToyRobot {
             }
         }catch (Exception e) {
             System.out.println(e.getMessage());
+            tmp = null;
         }
         return tmp;
+    }
+
+    private boolean contains(String string){
+        for (Direction dir : Direction.values()){
+            if (dir.name().equals(string)){
+                return true;
+            }
+        }
+        return false;
     }
 }
