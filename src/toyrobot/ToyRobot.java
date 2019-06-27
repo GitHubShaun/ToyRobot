@@ -14,43 +14,44 @@ public class ToyRobot {
 
     public void move(){
         System.out.println("MOVE COMMAND.");
-        switch (this.DIRECTION){
+        switch(this.DIRECTION){
             case "NORTH":
-                this.DIRECTION = "EAST";
+                if (this.Y + 1 <= 4 && this.Y + 1 >= 0) { this.Y = this.Y + 1; }
                 break;
             case "SOUTH" :
-                this.DIRECTION = "WEST";
+                if (this.Y - 1 <= 4 && this.Y - 1 >= 0) { this.Y = this.Y - 1; }
                 break;
             case "EAST" :
-                this.DIRECTION = "SOUTH";
+                if (this.X + 1 <= 4 && this.X + 1 >= 0) { this.X = this.X + 1; }
                 break;
             case "WEST" :
-                this.DIRECTION = "NORTH";
+                if (this.X - 1 <= 4 && this.X - 1 >= 0) { this.X = this.X - 1; }
                 break;
         }
     }
 
     public void left(){
         System.out.println("LEFT COMMAND.");
-        switch (this.DIRECTION){
+        switch(this.DIRECTION){
             case "NORTH":
-                this.DIRECTION = "EAST";
-                break;
-            case "SOUTH" :
                 this.DIRECTION = "WEST";
                 break;
-            case "EAST" :
-                this.DIRECTION = "SOUTH";
+            case "SOUTH" :
+                this.DIRECTION = "EAST";
                 break;
-            case "WEST" :
+            case "EAST" :
                 this.DIRECTION = "NORTH";
                 break;
+            case "WEST" :
+                this.DIRECTION = "SOUTH";
+                break;
         }
+
     }
 
     public void right(){
         System.out.println("RIGHT COMMAND.");
-        switch (this.DIRECTION){
+        switch(this.DIRECTION){
             case "NORTH":
                 this.DIRECTION = "EAST";
                 break;
@@ -67,7 +68,7 @@ public class ToyRobot {
     }
 
     public void report(){
-        System.out.println("REPORT COMMAND.");
+        //System.out.println("REPORT COMMAND.");
         System.out.println("Output: " + this.X + "," + this.Y + "," + this.DIRECTION);
     }
 }
