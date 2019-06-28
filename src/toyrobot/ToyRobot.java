@@ -4,12 +4,19 @@ package toyrobot;
 TODO: REST API design, .setID("name")(?) [GET POST PUT DELETE]
 TODO: JavaDoc
 TODO: try/catch/throw error handling
-TODO: variable board size (Currently fixed on 5x5 - hardcoded) board.java -> add to .jar file
 TODO: more test cases
 */
 
+/**
+ * Java Class Library to simulate a toy robot on a 5x5 board.
+ *
+ * @author Shaun Chua
+ */
 public class ToyRobot {
 
+    /**
+     * Possible directions the toy robot can face.
+     */
     enum Direction {
         NORTH, SOUTH, EAST, WEST
     }
@@ -17,9 +24,22 @@ public class ToyRobot {
     private int X;
     private int Y;
     private Direction DIRECTION;
+    /** Represents toy robot's parameters
+     */
 
+    //Constructors
+
+    /**
+     * Constructs a null <code>ToyRobot</code> that can be used manually.
+     */
     public ToyRobot(){}
 
+    /**
+     * Constructs a new <code>ToyRobot</code> object.
+     * @param X An integer indicating X position on the board.
+     * @param Y An integer indicating Y position on the board.
+     * @param direction A string indicating the direction the <code>ToyRobot</code> is facing on the board.
+     */
     public ToyRobot(int X, int Y, String direction) {
         try {
             if (isValidX(X) && isValidY(Y) && contains(direction)) {
@@ -32,10 +52,16 @@ public class ToyRobot {
             }
         }
         catch (Exception e){
-            System.out.println("Constructor Failed. Check PLACE command and try again.");
+            System.out.println("Constructor Failed. \'" +  X + "," + Y + "," + direction +"\' not recognised. Check PLACE command and try again.");
         }
     }
 
+    /**
+     * Constructs a new <code>ToyRobot</code> object.
+     * @param X An integer indicating X position on the board.
+     * @param Y An integer indicating Y position on the board.
+     * @param DIRECTION A direction data-type indicating the direction the <code>ToyRobot</code> is facing on the board.
+     */
     public ToyRobot(int X, int Y, Direction DIRECTION){
         try {
             if (isValidX(X) && isValidY(Y) && contains(DIRECTION)) {
@@ -48,10 +74,14 @@ public class ToyRobot {
             }
         }
         catch (Exception e){
-            System.out.println("Constructor Failed. Check PLACE command and try again.");
+            System.out.println("Constructor Failed. \'" +  X + "," + Y + "," + DIRECTION +"\' not recognised.  Check PLACE command and try again.");
         }
     }
 
+    /**
+     * Constructs a new <code>ToyRobot</code> object.
+     * @param position A string of information of the form X,Y,Direction.
+     */
     public ToyRobot(String position){
         try {
             if(validPlaceCommand(position)){
@@ -64,23 +94,54 @@ public class ToyRobot {
             }
         }
         catch (Exception e){
-            System.out.println("Constructor Failed. Check PLACE command and try again.");
+//            System.out.println("Constructor Failed. Check PLACE command and try again.");
+            System.out.println("Constructor Failed. \'" +  position +"\' not recognised. Check PLACE command and try again.");
+
         }
     }
 
+    /**
+     * Set the parameters for a <code>ToyRobot</code> object.
+     * @param X An integer indicating X position on the board.
+     * @param Y An integer indicating Y position on the board.
+     * @param DIRECTION A string indicating the direction the <code>ToyRobot</code> is facing on the board.
+     */
     public void set(int X, int Y, String DIRECTION){
-        if (isValidX(X) && isValidY(Y) && contains(DIRECTION)) {
-            this.X = X;
-            this.Y = Y;
-            this.DIRECTION = toDirection(DIRECTION);
+        try {
+            if (isValidX(X) && isValidY(Y) && contains(DIRECTION)) {
+                this.X = X;
+                this.Y = Y;
+                this.DIRECTION = toDirection(DIRECTION);
+            }
+            else{
+                throw new Exception();
+            }
+        }
+        catch (Exception e){
+            System.out.println("Invalid parameters.");
         }
     }
 
+    /**
+     * Get the X position of the <code>ToyRobot</code>.
+     * @return Integer indicating the X value.
+     */
     public int getX(){ return this.X; }
 
+    /**
+     * Get the Y position of the <code>ToyRobot</code>.
+     * @return Integer incidating the Y value.
+     */
     public int getY(){ return this.Y; }
 
+    /**
+     * Get the direction the <code>ToyRobot</code> is currently facing on the board.
+     * @return Direction date-type
+     */
     public Direction getDirection(){ return this.DIRECTION; }
+
+    //TODO: Replace Direction getDirection with String getDirection for user usablility.
+    public String getDirection(){ return this.DIRECTION.toString(); }
 
     public void delete(){
         this.X = 0;
@@ -89,7 +150,7 @@ public class ToyRobot {
     }
 
     public void move(){
-//        System.out.println("MOVE COMMAND.");
+//      System.out.println("MOVE COMMAND.");
         try {
             switch (this.DIRECTION) {
                 case NORTH:
@@ -121,55 +182,79 @@ public class ToyRobot {
 
     public void left(){
         //System.out.println("LEFT COMMAND.");
-        if (validPlaceCommand()) {
-            switch (this.DIRECTION) {
-                case NORTH:
-                    this.DIRECTION = Direction.WEST;
-                    break;
-                case SOUTH:
-                    this.DIRECTION = Direction.EAST;
-                    break;
-                case EAST:
-                    this.DIRECTION = Direction.NORTH;
-                    break;
-                case WEST:
-                    this.DIRECTION = Direction.SOUTH;
-                    break;
+        try {
+            if (validPlaceCommand()) {
+                switch (this.DIRECTION) {
+                    case NORTH:
+                        this.DIRECTION = Direction.WEST;
+                        break;
+                    case SOUTH:
+                        this.DIRECTION = Direction.EAST;
+                        break;
+                    case EAST:
+                        this.DIRECTION = Direction.NORTH;
+                        break;
+                    case WEST:
+                        this.DIRECTION = Direction.SOUTH;
+                        break;
+                }
             }
+            else{
+                throw new Exception();
+            }
+        }
+        catch(Exception e){
+            System.out.println("Cannot rotate an invalid toy robot.");
         }
     }
 
     public void right() {
         //System.out.println("RIGHT COMMAND.");
-        if (validPlaceCommand()) {
-            switch (this.DIRECTION) {
-                case NORTH:
-                    this.DIRECTION = Direction.EAST;
-                    break;
-                case SOUTH:
-                    this.DIRECTION = Direction.WEST;
-                    break;
-                case EAST:
-                    this.DIRECTION = Direction.SOUTH;
-                    break;
-                case WEST:
-                    this.DIRECTION = Direction.NORTH;
-                    break;
+        try {
+            if (validPlaceCommand()) {
+                switch (this.DIRECTION) {
+                    case NORTH:
+                        this.DIRECTION = Direction.EAST;
+                        break;
+                    case SOUTH:
+                        this.DIRECTION = Direction.WEST;
+                        break;
+                    case EAST:
+                        this.DIRECTION = Direction.SOUTH;
+                        break;
+                    case WEST:
+                        this.DIRECTION = Direction.NORTH;
+                        break;
+                }
             }
+            else{
+                throw new Exception();
+            }
+        }
+        catch(Exception e){
+            System.out.println("Cannot rotate an invalid toy robot.");
         }
     }
 
     public void report(){
         //System.out.println("REPORT COMMAND.");
-        if (validPlaceCommand()) {
-            System.out.println("Output: " + this.X + "," + this.Y + "," + this.DIRECTION);
+        try {
+            if (validPlaceCommand()) {
+                System.out.println("Output: " + this.X + "," + this.Y + "," + this.DIRECTION);
+            }
+            else{
+                throw new NullPointerException();
+            }
+        }
+        catch(NullPointerException e){
+            System.out.println("Cannot report on an invalid toy robot.");
         }
     }
 
     //Convert String to Direction
 
     private Direction toDirection(String string){
-        assert string != null : "Invalid direction facing, options: [NORTH,SOUTH,EAST,WEST].";
+        assert string != null : "Invalid direction, options: [NORTH,SOUTH,EAST,WEST].";
         Direction tmp = null;
         try {
             switch (string) {
@@ -187,7 +272,7 @@ public class ToyRobot {
                     break;
             }
         }catch (Exception e) {
-            System.out.println("\'" + string + "\'" + " not recognised. Try again.");
+            System.out.println("Invalid direction: \'" + string + "\' available options: [NORTH,SOUTH,EAST,WEST].");
             tmp = null;
         }
         return tmp;
