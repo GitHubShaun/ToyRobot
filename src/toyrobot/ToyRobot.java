@@ -1,11 +1,11 @@
 package toyrobot;
 
 /*
-TODO: REST API design
+TODO: REST API design, .setID("name")(?) [GET POST PUT DELETE]
 TODO: JavaDoc
 TODO: try/catch/throw error handling
-TODO: delete()
 TODO: variable board size (Currently fixed on 5x5 - hardcoded) board.java -> add to .jar file
+TODO: more test cases
 */
 
 public class ToyRobot {
@@ -21,26 +21,50 @@ public class ToyRobot {
     public ToyRobot(){}
 
     public ToyRobot(int X, int Y, String direction) {
-        if (isValidX(X) && isValidY(Y) && contains(direction)) {
-            this.X = X;
-            this.Y = Y;
-            this.DIRECTION = toDirection(direction);
+        try {
+            if (isValidX(X) && isValidY(Y) && contains(direction)) {
+                this.X = X;
+                this.Y = Y;
+                this.DIRECTION = toDirection(direction);
+            }
+            else{
+                throw new Exception();
+            }
+        }
+        catch (Exception e){
+            System.out.println("Constructor Failed. Check PLACE command and try again.");
         }
     }
 
     public ToyRobot(int X, int Y, Direction DIRECTION){
-        if (isValidX(X) && isValidY(Y) && contains(DIRECTION)) {
-            this.X = X;
-            this.Y = Y;
-            this.DIRECTION = DIRECTION;
+        try {
+            if (isValidX(X) && isValidY(Y) && contains(DIRECTION)) {
+                this.X = X;
+                this.Y = Y;
+                this.DIRECTION = DIRECTION;
+            }
+            else{
+                throw new Exception();
+            }
+        }
+        catch (Exception e){
+            System.out.println("Constructor Failed. Check PLACE command and try again.");
         }
     }
 
     public ToyRobot(String position){
-        if(validPlaceCommand(position)){
-            this.X = Integer.parseInt(position.substring(0,position.indexOf(",")));
-            this.Y = Integer.parseInt(position.substring(position.indexOf(",") + 1, position.lastIndexOf(",")));
-            this.DIRECTION = toDirection(position.toUpperCase().substring(position.lastIndexOf(",")+1));
+        try {
+            if(validPlaceCommand(position)){
+                this.X = Integer.parseInt(position.substring(0,position.indexOf(",")));
+                this.Y = Integer.parseInt(position.substring(position.indexOf(",") + 1, position.lastIndexOf(",")));
+                this.DIRECTION = toDirection(position.toUpperCase().substring(position.lastIndexOf(",")+1));
+            }
+            else{
+                throw new Exception();
+            }
+        }
+        catch (Exception e){
+            System.out.println("Constructor Failed. Check PLACE command and try again.");
         }
     }
 
@@ -59,14 +83,14 @@ public class ToyRobot {
     public Direction getDirection(){ return this.DIRECTION; }
 
     public void delete(){
-
+        this.X = 0;
+        this.Y = 0;
+        this.DIRECTION = null;
     }
 
     public void move(){
 //        System.out.println("MOVE COMMAND.");
-//        if (validPlaceCommand()) {
         try {
-            //System.out.println("trying.");
             switch (this.DIRECTION) {
                 case NORTH:
                     if (isValidY(Y + 1)) {
@@ -91,13 +115,8 @@ public class ToyRobot {
             }
         }
         catch(NullPointerException e){
-            //System.out.println("catching.");
-            System.out.println("No valid robot.");
+            System.out.println("Cannot move an invalid toy robot.");
         }
-//        }
-//        else{
-//            System.out.println("Incorrect place.");
-//        }
     }
 
     public void left(){
@@ -168,7 +187,7 @@ public class ToyRobot {
                     break;
             }
         }catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("\'" + string + "\'" + " not recognised. Try again.");
             tmp = null;
         }
         return tmp;

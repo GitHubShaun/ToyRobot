@@ -5,7 +5,6 @@ import java.io.*;
 public class ToyRobotSim {
 
     public static void main(String[] args) {
-//        inputHandler(args);
 
         ToyRobot robot = null;
 
@@ -58,9 +57,5 @@ public class ToyRobotSim {
                 //Scanner interactive robot sim
             }
         }
-
-//        robot = new ToyRobot(0, 0, "NORTH");
-//        robot.move();
-//        robot.report();
     }
 }
