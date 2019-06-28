@@ -1,11 +1,11 @@
 package toyrobot;
 
 /*
-TODO: Validate X,Y,Direction is within range/enum
-TODO: REST API
+TODO: REST API design
 TODO: JavaDoc
 TODO: try/catch/throw error handling
-TODO: variable board size (Currently fixed on 5x5 - hardcoded)
+TODO: delete()
+TODO: variable board size (Currently fixed on 5x5 - hardcoded) board.java -> add to .jar file
 */
 
 public class ToyRobot {
@@ -18,16 +18,22 @@ public class ToyRobot {
     private int Y;
     private Direction DIRECTION;
 
-    public ToyRobot(int X, int Y, String direction){
-        this.X = X;
-        this.Y = Y;
-        if (contains(direction)) this.DIRECTION = toDirection(direction);
+    public ToyRobot(){}
+
+    public ToyRobot(int X, int Y, String direction) {
+        if (isValidX(X) && isValidY(Y) && contains(direction)) {
+            this.X = X;
+            this.Y = Y;
+            this.DIRECTION = toDirection(direction);
+        }
     }
 
     public ToyRobot(int X, int Y, Direction DIRECTION){
-        this.X = X;
-        this.Y = Y;
-        this.DIRECTION = DIRECTION;
+        if (isValidX(X) && isValidY(Y) && contains(DIRECTION)) {
+            this.X = X;
+            this.Y = Y;
+            this.DIRECTION = DIRECTION;
+        }
     }
 
     public ToyRobot(String position){
@@ -38,74 +44,110 @@ public class ToyRobot {
         }
     }
 
+    public void set(int X, int Y, String DIRECTION){
+        if (isValidX(X) && isValidY(Y) && contains(DIRECTION)) {
+            this.X = X;
+            this.Y = Y;
+            this.DIRECTION = toDirection(DIRECTION);
+        }
+    }
+
     public int getX(){ return this.X; }
 
     public int getY(){ return this.Y; }
 
     public Direction getDirection(){ return this.DIRECTION; }
 
+    public void delete(){
+
+    }
+
     public void move(){
-        //System.out.println("MOVE COMMAND.");
-        switch(this.DIRECTION){
-            case NORTH:
-                if (this.Y + 1 <= 4 && this.Y + 1 >= 0) { this.Y = this.Y + 1; }
-                break;
-            case SOUTH:
-                if (this.Y - 1 <= 4 && this.Y - 1 >= 0) { this.Y = this.Y - 1; }
-                break;
-            case EAST:
-                if (this.X + 1 <= 4 && this.X + 1 >= 0) { this.X = this.X + 1; }
-                break;
-            case WEST:
-                if (this.X - 1 <= 4 && this.X - 1 >= 0) { this.X = this.X - 1; }
-                break;
+//        System.out.println("MOVE COMMAND.");
+//        if (validPlaceCommand()) {
+        try {
+            //System.out.println("trying.");
+            switch (this.DIRECTION) {
+                case NORTH:
+                    if (isValidY(Y + 1)) {
+                        this.Y = this.Y + 1;
+                    }
+                    break;
+                case SOUTH:
+                    if (isValidY(Y - 1)) {
+                        this.Y = this.Y - 1;
+                    }
+                    break;
+                case EAST:
+                    if (isValidX(X + 1)) {
+                        this.X = this.X + 1;
+                    }
+                    break;
+                case WEST:
+                    if (isValidX(X - 1)) {
+                        this.X = this.X - 1;
+                    }
+                    break;
+            }
         }
+        catch(NullPointerException e){
+            //System.out.println("catching.");
+            System.out.println("No valid robot.");
+        }
+//        }
+//        else{
+//            System.out.println("Incorrect place.");
+//        }
     }
 
     public void left(){
         //System.out.println("LEFT COMMAND.");
-        switch(this.DIRECTION){
-            case NORTH:
-                this.DIRECTION = Direction.WEST;
-                break;
-            case SOUTH:
-                this.DIRECTION = Direction.EAST;
-                break;
-            case EAST:
-                this.DIRECTION = Direction.NORTH;
-                break;
-            case WEST:
-                this.DIRECTION = Direction.SOUTH;
-                break;
+        if (validPlaceCommand()) {
+            switch (this.DIRECTION) {
+                case NORTH:
+                    this.DIRECTION = Direction.WEST;
+                    break;
+                case SOUTH:
+                    this.DIRECTION = Direction.EAST;
+                    break;
+                case EAST:
+                    this.DIRECTION = Direction.NORTH;
+                    break;
+                case WEST:
+                    this.DIRECTION = Direction.SOUTH;
+                    break;
+            }
         }
     }
 
-    public void right(){
+    public void right() {
         //System.out.println("RIGHT COMMAND.");
-        switch(this.DIRECTION){
-            case NORTH:
-                this.DIRECTION = Direction.EAST;
-                break;
-            case SOUTH:
-                this.DIRECTION = Direction.WEST;
-                break;
-            case EAST:
-                this.DIRECTION = Direction.SOUTH;
-                break;
-            case WEST:
-                this.DIRECTION = Direction.NORTH;
-                break;
+        if (validPlaceCommand()) {
+            switch (this.DIRECTION) {
+                case NORTH:
+                    this.DIRECTION = Direction.EAST;
+                    break;
+                case SOUTH:
+                    this.DIRECTION = Direction.WEST;
+                    break;
+                case EAST:
+                    this.DIRECTION = Direction.SOUTH;
+                    break;
+                case WEST:
+                    this.DIRECTION = Direction.NORTH;
+                    break;
+            }
         }
     }
 
     public void report(){
         //System.out.println("REPORT COMMAND.");
-        System.out.println("Output: " + this.X + "," + this.Y + "," + this.DIRECTION);
+        if (validPlaceCommand()) {
+            System.out.println("Output: " + this.X + "," + this.Y + "," + this.DIRECTION);
+        }
     }
 
-    private boolean validPlaceCommand(String str){
-        return str.toUpperCase().replaceAll("\\s","").matches("([0-4]),([0-4]),(NORTH|SOUTH|EAST|WEST)");
-    }
+    //Convert String to Direction
 
     private Direction toDirection(String string){
         assert string != null : "Invalid direction facing, options: [NORTH,SOUTH,EAST,WEST].";
@@ -132,6 +174,16 @@ public class ToyRobot {
         return tmp;
     }
 
+    //Boolean checkers
+
+    private boolean validPlaceCommand(){
+        return (this.DIRECTION != null);
+    }
+
+    private boolean validPlaceCommand(String str){
+        return str.toUpperCase().replaceAll("\\s","").matches("([0-4]),([0-4]),(NORTH|SOUTH|EAST|WEST)");
+    }
+
     private boolean contains(String string){
         for (Direction dir : Direction.values()){
             if (dir.name().equals(string)){
@@ -139,5 +191,22 @@ public class ToyRobot {
             }
         }
         return false;
+    }
+
+    private boolean contains(Direction DIRECTION){
+        for (Direction dir : Direction.values()){
+            if (dir.name().equals(DIRECTION.toString())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isValidX(int value){
+        return (value <= 4 && value >= 0);
+    }
+
+    private boolean isValidY(int value){
+        return (value <= 4 && value >= 0);
     }
 }

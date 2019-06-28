@@ -1,64 +1,66 @@
 package toyrobot;
 
-import java.io.File;
+import java.io.*;
 
 public class ToyRobotSim {
 
+    public static void main(String[] args) {
+//        inputHandler(args);
 
-    //test.txt - open file, scan lines
-    //PLACE 0,0,NORTH - input args one by one
-    //(empty) - interactive sim..., reply with dialogue("Enter PLACE X,Y,DIRECTION")
-    public static void inputHandler(String[] args){
         ToyRobot robot = null;
 
-        if (args.length > 0){
-            for (int i=0; i<args.length; i++){
-                String command = args[i];
-                if(command.matches("(.*).txt")){
-                    System.out.println("Read file: " + command);
-                    //processFile(File command);
-                }else{
-                    System.out.println(i + ": Execute: " + command);
-                    if (command.matches("PLACE")){
-                        command = command + " " + args[i+1];
-                        executeActions(robot, command);
-                        i++;
-                        continue;
+        for (int i=0; i<args.length; i++) {
+            //if (args.length == 1){
+            if (args[i].matches("(.*).txt")) {
+                try {
+                    File file = new File(args[i]);
+
+                    if (file != null) {
+                        BufferedReader buf = new BufferedReader(new FileReader(file));
+                        String line;
+                        try {
+                            while ((line = buf.readLine()) != null) {
+                                if (line.toUpperCase().startsWith("PLACE")) {
+                                    //check if this command is valid
+                                    try {
+                                        robot = new ToyRobot(line.substring(line.indexOf(' ') + 1));
+                                    } catch (Exception ex) {
+                                        System.out.println("Invalid PLACE command");
+                                    }
+                                } else if (robot != null) {
+                                    switch (line) {
+                                        case "MOVE":
+                                            robot.move();
+                                            break;
+                                        case "LEFT":
+                                            robot.left();
+                                            break;
+                                        case "RIGHT":
+                                            robot.right();
+                                            break;
+                                        case "REPORT":
+                                            robot.report();
+                                            break;
+                                    }
+                                }
+                            }
+                            buf.close();
+                        } catch (IOException e) {
+                            System.out.println("Hello here.");
+                        }
                     }
-                    executeActions(robot, command);
+                } catch (FileNotFoundException e) {
+                    System.out.println("File not found.");
                 }
+            } else if (args.length > 1) {
+                //commandline arguments
+            } else {
+                //Scanner interactive robot sim
             }
-        }else{
-            doStuff();
         }
+
+//        robot = new ToyRobot(0, 0, "NORTH");
+//        robot.move();
+//        robot.report();
     }
-
-    public void processFile(File file){
-        //executeActions();
-    }
-
-    public static void executeActions(ToyRobot robot, String command){
-        System.out.println("executeAction(" + command + ")");
-        if(command.toUpperCase().startsWith("PLACE")) {
-
-        }
-        if(robot != null){
-
-        }
-    }
-
-    public static void doStuff(){
-        //ToyRobot robot = new ToyRobot(1,2, ToyRobot.Direction.valueOf("WEST"));
-        ToyRobot robot = new ToyRobot("1,2,WEST");
-        robot.move();
-        robot.move();
-        robot.left();
-        robot.move();
-        robot.report();
-    }
-
-    public static void main(String[] args){
-        inputHandler(args);
-    }
-
 }
