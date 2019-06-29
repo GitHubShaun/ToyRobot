@@ -21,9 +21,7 @@ public class ToyRobot {
     private int X;
     private int Y;
     private Direction DIRECTION;
-    /**
-     * Represents toy robot's parameters
-     */
+    // Represents toy robot's parameters
 
     //Constructors
 
@@ -37,7 +35,7 @@ public class ToyRobot {
      * @param X An integer indicating X position on the board.
      * @param Y An integer indicating Y position on the board.
      * @param direction A string indicating the direction the <code>ToyRobot</code> is facing on the board.
-     * @throws IllegalArgumentException if inputs are not recognised.
+     * @throws IllegalArgumentException if inputs are not recognized.
      */
     public ToyRobot(int X, int Y, String direction) {
         try {
@@ -51,7 +49,7 @@ public class ToyRobot {
             }
         }
         catch (IllegalArgumentException e){
-            System.out.println("Constructor Failed. \'" +  X + "," + Y + "," + direction +"\' not recognised. Check PLACE command and try again.");
+            System.out.println("Constructor Failed. \'" +  X + "," + Y + "," + direction +"\' not recognized. Check PLACE command and try again.");
         }
     }
 
@@ -74,7 +72,7 @@ public class ToyRobot {
             }
         }
         catch (IllegalArgumentException e){
-            System.out.println("Constructor Failed. \'" +  X + "," + Y + "," + DIRECTION +"\' not recognised. Check PLACE command and try again.");
+            System.out.println("Constructor Failed. \'" +  X + "," + Y + "," + DIRECTION +"\' not recognized. Check PLACE command and try again.");
         }
     }
 
@@ -95,7 +93,7 @@ public class ToyRobot {
             }
         }
         catch (IllegalArgumentException e){
-            System.out.println("Constructor Failed. \'" +  position +"\' not recognised. Check PLACE command and try again.");
+            System.out.println("Constructor Failed. \'" +  position +"\' not recognized. Check PLACE command and try again.");
         }
     }
 
@@ -331,10 +329,9 @@ public class ToyRobot {
         return false;
     }
 
-    //TODO: double check it does not have unnecessary code
     private boolean contains(Direction DIRECTION){
         for (Direction dir : Direction.values()){
-            if (dir.name().equals(DIRECTION.toString())){
+            if (dir.equals(DIRECTION)){
                 return true;
             }
         }

@@ -37,11 +37,11 @@ public class ToyRobotConstructorTests {
     public void testIntIntStringConstructorInvalids(){
         robot = new ToyRobot(-1,0,"NORTH"); //Out of bounds, 5x5 board.
         robot = new ToyRobot(0,-1,"NORTH"); //Out of bounds, 5x5 board.
-        robot = new ToyRobot(0,0,"test"); //Unrecognised direction.
+        robot = new ToyRobot(0,0,"test"); //Unrecognized direction.
         assertEquals(
-                "Constructor Failed. '-1,0,NORTH' not recognised. Check PLACE command and try again.\n" +
-                "Constructor Failed. '0,-1,NORTH' not recognised. Check PLACE command and try again.\n" +
-                "Constructor Failed. '0,0,test' not recognised. Check PLACE command and try again.\n"
+                "Constructor Failed. '-1,0,NORTH' not recognized. Check PLACE command and try again.\n" +
+                "Constructor Failed. '0,-1,NORTH' not recognized. Check PLACE command and try again.\n" +
+                "Constructor Failed. '0,0,test' not recognized. Check PLACE command and try again.\n"
                 , out.toString());
     }
 
@@ -56,11 +56,11 @@ public class ToyRobotConstructorTests {
     public void testIntIntDirectionConstructorInvalids(){
         robot = new ToyRobot(-1,0, ToyRobot.Direction.NORTH); //Out of bounds, 5x5 board.
         robot = new ToyRobot(0,-1, ToyRobot.Direction.NORTH); //Out of bounds, 5x5 board.
-        robot = new ToyRobot(0,0,"test"); //Unrecognised direction.
+        robot = new ToyRobot(0,0,"test"); //Unrecognized direction.
         assertEquals(
-                "Constructor Failed. '-1,0,NORTH' not recognised. Check PLACE command and try again.\n" +
-                        "Constructor Failed. '0,-1,NORTH' not recognised. Check PLACE command and try again.\n" +
-                        "Constructor Failed. '0,0,test' not recognised. Check PLACE command and try again.\n"
+                "Constructor Failed. '-1,0,NORTH' not recognized. Check PLACE command and try again.\n" +
+                        "Constructor Failed. '0,-1,NORTH' not recognized. Check PLACE command and try again.\n" +
+                        "Constructor Failed. '0,0,test' not recognized. Check PLACE command and try again.\n"
                 , out.toString());
     }
 
@@ -73,15 +73,15 @@ public class ToyRobotConstructorTests {
 
     @Test
     public void testStringConstructorInvalids(){
-        robot = new ToyRobot("failtest"); //Unrecognised string, not of the form X,Y,Direction.
+        robot = new ToyRobot("failtest"); //Unrecognized string, not of the form X,Y,Direction.
         robot = new ToyRobot("-1,0,NORTH"); //Out of bounds, 5x5 board.
         robot = new ToyRobot("0,-1,NORTH"); //Out of bounds, 5x5 board.
-        robot = new ToyRobot("0,0,test"); //Unrecognised direction.
+        robot = new ToyRobot("0,0,test"); //Unrecognized direction.
         assertEquals(
-                "Constructor Failed. 'failtest' not recognised. Check PLACE command and try again.\n" +
-                        "Constructor Failed. '-1,0,NORTH' not recognised. Check PLACE command and try again.\n" +
-                        "Constructor Failed. '0,-1,NORTH' not recognised. Check PLACE command and try again.\n" +
-                        "Constructor Failed. '0,0,test' not recognised. Check PLACE command and try again.\n"
+                "Constructor Failed. 'failtest' not recognized. Check PLACE command and try again.\n" +
+                        "Constructor Failed. '-1,0,NORTH' not recognized. Check PLACE command and try again.\n" +
+                        "Constructor Failed. '0,-1,NORTH' not recognized. Check PLACE command and try again.\n" +
+                        "Constructor Failed. '0,0,test' not recognized. Check PLACE command and try again.\n"
                 , out.toString());
     }
 }

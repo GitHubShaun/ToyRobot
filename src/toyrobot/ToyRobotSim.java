@@ -1,21 +1,9 @@
 package toyrobot;
 
 import java.io.*;
-import java.sql.SQLOutput;
-import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
 
 //TODO: Documenting/commenting
 public class ToyRobotSim {
-
-    static TimerTask execute = new TimerTask(){
-
-        public void run() {
-            System.out.println("Time ran out, Bye bye.");
-            System.exit(0);
-        }
-    };
 
     public static void main(String[] args) {
 
@@ -32,7 +20,6 @@ public class ToyRobotSim {
                         try {
                             while ((line = buf.readLine()) != null) {
                                 if (line.toUpperCase().startsWith("PLACE")) {
-                                    //check if this command is valid
                                     try {
                                         robot = new ToyRobot(line.substring(line.indexOf(' ') + 1));
                                     } catch (Exception ex) {
