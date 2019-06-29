@@ -40,6 +40,7 @@ public class ToyRobot {
      * @param X An integer indicating X position on the board.
      * @param Y An integer indicating Y position on the board.
      * @param direction A string indicating the direction the <code>ToyRobot</code> is facing on the board.
+     * @throws IllegalArgumentException if inputs are not recognised.
      */
     public ToyRobot(int X, int Y, String direction) {
         try {
@@ -49,10 +50,10 @@ public class ToyRobot {
                 this.DIRECTION = toDirection(direction);
             }
             else{
-                throw new Exception();
+                throw new IllegalArgumentException();
             }
         }
-        catch (Exception e){
+        catch (IllegalArgumentException e){
             System.out.println("Constructor Failed. \'" +  X + "," + Y + "," + direction +"\' not recognised. Check PLACE command and try again.");
         }
     }
@@ -62,6 +63,7 @@ public class ToyRobot {
      * @param X An integer indicating X position on the board.
      * @param Y An integer indicating Y position on the board.
      * @param DIRECTION A direction data-type indicating the direction the <code>ToyRobot</code> is facing on the board.
+     * @throws IllegalArgumentException if inputs are not recognized.
      */
     public ToyRobot(int X, int Y, Direction DIRECTION){
         try {
@@ -71,17 +73,18 @@ public class ToyRobot {
                 this.DIRECTION = DIRECTION;
             }
             else{
-                throw new Exception();
+                throw new IllegalArgumentException();
             }
         }
-        catch (Exception e){
+        catch (IllegalArgumentException e){
             System.out.println("Constructor Failed. \'" +  X + "," + Y + "," + DIRECTION +"\' not recognised.  Check PLACE command and try again.");
         }
     }
 
     /**
      * Constructs a new <code>ToyRobot</code> object.
-     * @param position A string of information of the form X,Y,Direction.
+     * @param position A string of information of the form X,Y,Direction to place the <code>ToyRobot</code>.
+     * @throws IllegalArgumentException if inputs are not recognized.
      */
     public ToyRobot(String position){
         try {
@@ -91,13 +94,11 @@ public class ToyRobot {
                 this.DIRECTION = toDirection(position.toUpperCase().substring(position.lastIndexOf(",")+1));
             }
             else{
-                throw new Exception();
+                throw new IllegalArgumentException();
             }
         }
-        catch (Exception e){
-//            System.out.println("Constructor Failed. Check PLACE command and try again.");
+        catch (IllegalArgumentException e){
             System.out.println("Constructor Failed. \'" +  position +"\' not recognised. Check PLACE command and try again.");
-
         }
     }
 
@@ -106,6 +107,7 @@ public class ToyRobot {
      * @param X An integer indicating X position on the board.
      * @param Y An integer indicating Y position on the board.
      * @param DIRECTION A string indicating the direction the <code>ToyRobot</code> is facing on the board.
+     * @throws IllegalArgumentException if inputs are not recognized.
      */
     public void set(int X, int Y, String DIRECTION){
         try {
@@ -115,10 +117,10 @@ public class ToyRobot {
                 this.DIRECTION = toDirection(DIRECTION);
             }
             else{
-                throw new Exception();
+                throw new IllegalArgumentException();
             }
         }
-        catch (Exception e){
+        catch (IllegalArgumentException e){
             System.out.println("Invalid parameters.");
         }
     }
@@ -157,6 +159,7 @@ public class ToyRobot {
      * SOUTH = Y--
      * EAST  = X++
      * WEST  = X--
+     * @throws NullPointerException if robot is not valid.
      */
     public void move(){
 //      System.out.println("MOVE COMMAND.");
@@ -195,6 +198,7 @@ public class ToyRobot {
      * SOUTH = EAST
      * EAST  = NORTH
      * WEST  = SOUTH
+     * @throws NullPointerException if robot is not valid.
      */
     public void left(){
         //System.out.println("LEFT COMMAND.");
@@ -216,10 +220,10 @@ public class ToyRobot {
                 }
             }
             else{
-                throw new Exception();
+                throw new NullPointerException();
             }
         }
-        catch(Exception e){
+        catch(NullPointerException e){
             System.out.println("Cannot rotate an invalid toy robot.");
         }
     }
@@ -230,6 +234,7 @@ public class ToyRobot {
      * SOUTH = WEST
      * EAST  = SOUTH
      * WEST  = NORTH
+     * @throws NullPointerException if robot is not valid.
      */
     public void right() {
         //System.out.println("RIGHT COMMAND.");
@@ -251,10 +256,10 @@ public class ToyRobot {
                 }
             }
             else{
-                throw new Exception();
+                throw new NullPointerException();
             }
         }
-        catch(Exception e){
+        catch(NullPointerException e){
             System.out.println("Cannot rotate an invalid toy robot.");
         }
     }
@@ -262,6 +267,7 @@ public class ToyRobot {
     /**
      * REPORT command. Returns a printed statement to the terminal providing information on this <code>ToyRobot</code>.
      * Output: X,Y,Direction is expected.
+     * @throws NullPointerException if robot is not valid.
      */
     public void report(){
         //System.out.println("REPORT COMMAND.");
