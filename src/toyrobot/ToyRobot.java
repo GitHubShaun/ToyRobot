@@ -2,8 +2,6 @@ package toyrobot;
 
 /*
 TODO: REST API design, .setID("name")(?) [GET POST PUT DELETE]
-TODO: JavaDoc
-TODO: try/catch/throw error handling
 TODO: more test cases
 */
 
@@ -77,7 +75,7 @@ public class ToyRobot {
             }
         }
         catch (IllegalArgumentException e){
-            System.out.println("Constructor Failed. \'" +  X + "," + Y + "," + DIRECTION +"\' not recognised.  Check PLACE command and try again.");
+            System.out.println("Constructor Failed. \'" +  X + "," + Y + "," + DIRECTION +"\' not recognised. Check PLACE command and try again.");
         }
     }
 

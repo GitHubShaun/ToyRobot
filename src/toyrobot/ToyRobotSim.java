@@ -9,6 +9,7 @@ public class ToyRobotSim {
     public static void main(String[] args) {
 
         ToyRobot robot = null;
+        robot = new ToyRobot(-1,0,"NORTH");
 
         for (int i=0; i<args.length; i++) {
             //if (args.length == 1){
