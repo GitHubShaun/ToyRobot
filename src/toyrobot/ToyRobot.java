@@ -24,7 +24,8 @@ public class ToyRobot {
     private int X;
     private int Y;
     private Direction DIRECTION;
-    /** Represents toy robot's parameters
+    /**
+     * Represents toy robot's parameters
      */
 
     //Constructors
@@ -135,20 +136,28 @@ public class ToyRobot {
     public int getY(){ return this.Y; }
 
     /**
-     * Get the direction the <code>ToyRobot</code> is currently facing on the board.
-     * @return Direction date-type
+     * Get the Direction which the <code>ToyRobot</code> is currently facing.
+     * @return String indicating the direction facing.
      */
-    public Direction getDirection(){ return this.DIRECTION; }
-
-    //TODO: Replace Direction getDirection with String getDirection for user usablility.
     public String getDirection(){ return this.DIRECTION.toString(); }
 
+    /**
+     * Delete the parameter information of this <code>ToyRobot</code>.
+     * Results in <code>ToyRobot</code> with information 0,0,null.
+     */
     public void delete(){
         this.X = 0;
         this.Y = 0;
         this.DIRECTION = null;
     }
 
+    /**
+     * MOVE command. Moves the <code>ToyRobot</code> forward 1 space in the direction it is facing.
+     * NORTH = Y++
+     * SOUTH = Y--
+     * EAST  = X++
+     * WEST  = X--
+     */
     public void move(){
 //      System.out.println("MOVE COMMAND.");
         try {
@@ -180,6 +189,13 @@ public class ToyRobot {
         }
     }
 
+    /**
+     * LEFT command. Rotates the <code>ToyRobot</code> anti-clockwise (left) from the current direction.
+     * NORTH = WEST
+     * SOUTH = EAST
+     * EAST  = NORTH
+     * WEST  = SOUTH
+     */
     public void left(){
         //System.out.println("LEFT COMMAND.");
         try {
@@ -208,6 +224,13 @@ public class ToyRobot {
         }
     }
 
+    /**
+     * RIGHT command. Rotates the <code>ToyRobot</code> clockwise (RIGHT) from the current direction.
+     * NORTH = EAST
+     * SOUTH = WEST
+     * EAST  = SOUTH
+     * WEST  = NORTH
+     */
     public void right() {
         //System.out.println("RIGHT COMMAND.");
         try {
@@ -236,6 +259,10 @@ public class ToyRobot {
         }
     }
 
+    /**
+     * REPORT command. Returns a printed statement to the terminal providing information on this <code>ToyRobot</code>.
+     * Output: X,Y,Direction is expected.
+     */
     public void report(){
         //System.out.println("REPORT COMMAND.");
         try {
@@ -251,8 +278,7 @@ public class ToyRobot {
         }
     }
 
-    //Convert String to Direction
-
+    //Convert String to Direction for processing.
     private Direction toDirection(String string){
         assert string != null : "Invalid direction, options: [NORTH,SOUTH,EAST,WEST].";
         Direction tmp = null;
@@ -280,14 +306,19 @@ public class ToyRobot {
 
     //Boolean checkers
 
+    //Ensures robot parameters has been initialized.
+    //If robot hasn't been initialized, parameters are 0,0,null.
     private boolean validPlaceCommand(){
         return (this.DIRECTION != null);
     }
 
+    //Ensure the string parsed to the constructor is valid parameters for placing the Toy Robot.
+    //Only valid is X,Y is within the 5x5 board and Direction is North,South,East,West.
     private boolean validPlaceCommand(String str){
         return str.toUpperCase().replaceAll("\\s","").matches("([0-4]),([0-4]),(NORTH|SOUTH|EAST|WEST)");
     }
 
+    //Checks if parsed string is in the Direction enum type.
     private boolean contains(String string){
         for (Direction dir : Direction.values()){
             if (dir.name().equals(string)){
@@ -297,6 +328,7 @@ public class ToyRobot {
         return false;
     }
 
+    //TODO: double check it does not have unnecessary code
     private boolean contains(Direction DIRECTION){
         for (Direction dir : Direction.values()){
             if (dir.name().equals(DIRECTION.toString())){
@@ -306,10 +338,12 @@ public class ToyRobot {
         return false;
     }
 
+    //Checks if the @param value is within the range of 0-4 (5x5 board).
     private boolean isValidX(int value){
         return (value <= 4 && value >= 0);
     }
 
+    //Checks if the @param value is within the range of 0-4 (5x5 board).
     private boolean isValidY(int value){
         return (value <= 4 && value >= 0);
     }

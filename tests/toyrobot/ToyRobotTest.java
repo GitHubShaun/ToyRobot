@@ -36,9 +36,15 @@ public class ToyRobotTest {
 
     }
 
+//    @Test
+//    public void testgetDirection() {
+//        assertEquals(ToyRobot.Direction.NORTH, validRobot.getDirection());
+//
+//    }
+
     @Test
     public void testgetDirection() {
-        assertEquals(ToyRobot.Direction.NORTH, validRobot.getDirection());
+        assertEquals("NORTH", validRobot.getDirection());
 
     }
 
@@ -52,7 +58,7 @@ public class ToyRobotTest {
     public void testdelete() {
         validRobot.delete();
         validRobot.report();
-        assertEquals("", out.toString());
+        assertEquals("Cannot report on an invalid toy robot.\n", out.toString());
     }
 
     @Test

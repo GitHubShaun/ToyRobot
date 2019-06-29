@@ -7,6 +7,8 @@ public class ToyRobotSim {
     public static void main(String[] args) {
 
         ToyRobot robot = null;
+        ToyRobot robot1 = new ToyRobot(10,10,"poo");
+        robot1.report();
 
         for (int i=0; i<args.length; i++) {
             //if (args.length == 1){
@@ -14,7 +16,7 @@ public class ToyRobotSim {
                 try {
                     File file = new File(args[i]);
 
-                    if (file != null) {
+                    if (file != null) { //unnecessary but useful validator.
                         BufferedReader buf = new BufferedReader(new FileReader(file));
                         String line;
                         try {
