@@ -1,7 +1,6 @@
 package toyrobot;
 
 /*
-TODO: REST API design, .setID("name")(?) [GET POST PUT DELETE]
 TODO: more test cases
 */
 

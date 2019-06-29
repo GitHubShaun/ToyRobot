@@ -1,18 +1,27 @@
 package toyrobot;
 
 import java.io.*;
+import java.sql.SQLOutput;
+import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
-//TODO: other implementations: commandline inputs, ie. PLACE 0,0,NORTH MOVE REPORT;
-// interactive simulator, ie. Scanner to read inputs and perform actions while program runs.
 //TODO: Documenting/commenting
 public class ToyRobotSim {
+
+    static TimerTask execute = new TimerTask(){
+
+        public void run() {
+            System.out.println("Time ran out, Bye bye.");
+            System.exit(0);
+        }
+    };
 
     public static void main(String[] args) {
 
         ToyRobot robot = null;
 
         for (int i=0; i<args.length; i++) {
-            //if (args.length == 1){
             if (args[i].matches("(.*).txt")) {
                 try {
                     File file = new File(args[i]);
@@ -55,9 +64,29 @@ public class ToyRobotSim {
                     System.out.println("File not found.");
                 }
             } else if (args.length > 1) {
-                //commandline arguments
-            } else {
-                //Scanner interactive robot sim
+                //get commandline arguments
+                if (args[i].toUpperCase().startsWith("PLACE")) {
+                    try {
+                        robot = new ToyRobot(args[i+1]);
+                    } catch (Exception ex) {
+                        System.out.println("Invalid PLACE command");
+                    }
+                } else if (robot != null) {
+                    switch (args[i]) {
+                        case "MOVE":
+                            robot.move();
+                            break;
+                        case "LEFT":
+                            robot.left();
+                            break;
+                        case "RIGHT":
+                            robot.right();
+                            break;
+                        case "REPORT":
+                            robot.report();
+                            break;
+                    }
+                }
             }
         }
     }
