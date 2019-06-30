@@ -48,7 +48,7 @@ public class ToyRobotSim {
                         }
                     }
                 } catch (FileNotFoundException e) {
-                    System.out.println("File not found.");
+                    System.out.println(args[i] + ": File not found.");
                 }
             } else if (args.length > 1) {
                 //get commandline arguments
