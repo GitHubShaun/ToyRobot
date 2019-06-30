@@ -1,5 +1,7 @@
 Run script using:
 sh script.command [file.txt] [file.txt] [file.txt]
+eg. 
+sh script.command testcase1.txt
 
 Designed and developed on:
 MAC
