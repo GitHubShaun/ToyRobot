@@ -21,6 +21,18 @@ Easy Run Instructions:
 	Will give the output - Output: 0,1,NORTH
 5) If adding additional test cases, test textiles MUST be in the testfiles directory in the project directory, due to compilation/executing being hardcoded. 
 
+What is included in this care package:
+dist - distribute library
+JavaDoc - documentation (auto-generated from my library class)
+lib - library used for the toy robot simulation execution
+README.txt 
+script.command - terminal script used to compile/execute the simulation
+src - source files, includes the library java file (ToyRobot.java) and an example simulation java file (ToyRobotSim.java)
+testfiles - directory for all the test cases, all test cases must be in here to be used with the shell script.
+tests - JUnit test files
+ToyRobotLibary.docx - document explaining the project
+ToyRobotLibary.pdf - document explaining the project (probably useful)
+
 Example testcases (in the testfiles directory):
 testcase1.txt
 PLACE 0,0,NORTH
